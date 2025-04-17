@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className="min-h-screen py-20 mt-32">
+    <section id="hero" className="min-h-screen py-20 mt-32">
       <div className="grid md:grid-cols-2 gap-10 items-center pl-2">
         <div>
           <h5 className="text-7xl font-bold text-gray-400 mb-3">Hi, I'm</h5>
@@ -20,9 +19,16 @@ const Hero = () => {
             developer.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link to="/projects" className="btn btn-primary">
+            <button
+              onClick={() =>
+                document
+                  .getElementById("projects")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+              className="btn btn-primary"
+            >
               View My Work
-            </Link>
+            </button>
             <a
               href="https://linkedin.com"
               target="_blank"
@@ -40,7 +46,7 @@ const Hero = () => {
               LinkedIn
             </a>
             <a
-              href="mailto:sameermakwani0609@gmail.com"
+              href="mailto:sameermakwani0609@gmail.comSend"
               className="btn btn-danger flex items-center gap-2"
             >
               <svg
@@ -56,16 +62,16 @@ const Hero = () => {
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="w-96 h-96 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-purple-500">
+          <div className="w-96 h-96 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-blue-500">
             <img
-              src="/download.jpeg" // Ensure the image is in the public/assets/ folder
+              src="/MyImage.jpg"
               alt="Sameer Makwani"
               className="w-full h-full object-cover"
             />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 export default Hero;

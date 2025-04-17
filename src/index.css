@@ -1,4 +1,4 @@
-/* index.css or global.css */
+
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
@@ -11,6 +11,9 @@ body {
   overflow-x: hidden;
   @apply bg-dark-bg text-gray-300;
   font-family: "Inter", sans-serif;
+}
+html {
+  scroll-behavior: smooth;
 }
 
 .gradient-text {

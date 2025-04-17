@@ -1,57 +1,61 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
 
-  const isActive = (path) => {
-    return location.pathname === path;
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const navbarHeight = document.querySelector("nav").offsetHeight;
+      const sectionHeight = section.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const offset = (viewportHeight - sectionHeight) / 2;
+
+      window.scrollTo({
+        top: section.offsetTop - navbarHeight + offset,
+        behavior: "smooth",
+      });
+
+      setIsOpen(false);
+    }
   };
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Experience", path: "/experience" },
-    { name: "Education", path: "/education" },
-    { name: "Skills", path: "/skills" },
-    { name: "Projects", path: "/projects" },
-    { name: "Achievements", path: "/achievements" },
-    { name: "Contact", path: "/contact" },
+    { name: "Home", section: "hero" },
+    { name: "About", section: "about" },
+    { name: "Experience", section: "experience" },
+    { name: "Education", section: "education" },
+    { name: "Skills", section: "skills" },
+    { name: "Projects", section: "projects" },
+    { name: "Achievements", section: "achievements" },
+    { name: "Contact", section: "contact" },
   ];
 
   return (
     <nav className="bg-black/90 backdrop-blur-md sticky top-3 z-50 shadow-md">
       <div className="mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          {/* Branding */}
           <div className="flex-shrink-0 pl-24">
-            <Link
-              to="/"
+            <button
+              onClick={() => scrollToSection("hero")}
               className="text-3xl font-bold flex items-center space-x-3"
             >
               <span className="text-blue-500 ml-40">Sameer</span>
               <span className="text-purple-500">Makwani</span>
-            </Link>
+            </button>
           </div>
-
-          {/* Desktop Navigation */}
           <div className="hidden md:flex flex-grow justify-end pr-16 space-x-10">
             {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`relative group text-white text-xl font-medium tracking-wide ${
-                  isActive(link.path) ? "text-white" : "text-gray-300"
-                }`}
+              <button
+                key={link.section}
+                onClick={() => scrollToSection(link.section)}
+                className="relative group text-white text-xl font-medium tracking-wide"
               >
                 {link.name}
                 <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-              </Link>
+              </button>
             ))}
           </div>
-
-          {/* Mobile menu button */}
           <button
             className="md:hidden text-gray-300 focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
@@ -89,22 +93,17 @@ const Navbar = () => {
             )}
           </button>
         </div>
-
-        {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden py-4 space-y-3">
             {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`block relative group text-white text-lg py-2 ${
-                  isActive(link.path) ? "text-white" : "text-gray-300"
-                }`}
-                onClick={() => setIsOpen(false)}
+              <button
+                key={link.section}
+                onClick={() => scrollToSection(link.section)}
+                className="block relative group text-white text-lg py-2 w-full text-left"
               >
                 {link.name}
                 <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-              </Link>
+              </button>
             ))}
           </div>
         )}

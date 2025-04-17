@@ -1,5 +1,10 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -10,21 +15,39 @@ import Projects from "./components/Projects";
 import Achievements from "./components/Achievements";
 import Contact from "./components/Contact";
 
+function ScrollToTop() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  return null;
+}
+
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-dark-bg">
+      <div className="min-h-screen bg-dark-bg flex flex-col">
         <Navbar />
-        <div className="container mx-auto px-4 py-10">
+        <ScrollToTop />
+        <div className="flex-1 overflow-y-auto container mx-auto px-4 py-10">
           <Routes>
-            <Route path="/" element={<Hero />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/achievements" element={<Achievements />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route
+              path="/"
+              element={
+                <>
+                  <section id="hero"><Hero /></section>
+                  <section id="about"><About /></section>
+                  <section id="experience"><Experience /></section>
+                  <section id="education"><Education /></section>
+                  <section id="skills"><Skills /></section>
+                  <section id="projects"><Projects /></section>
+                  <section id="achievements"><Achievements /></section>
+                  <section id="contact"><Contact /></section>
+                </>
+              }
+            />
           </Routes>
         </div>
       </div>
