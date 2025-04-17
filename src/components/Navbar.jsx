@@ -32,10 +32,12 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-black/90 backdrop-blur-md sticky top-3 z-50 shadow-md">
+    <nav className="bg-black/90 backdrop-blur-md sticky top-3 z-50 shadow-md text-sm md:text-base lg:text-base">
       <div className="mx-auto px-4 sm:px-8 md:px-16">
         <div className="flex justify-between items-center py-3">
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 pl-6">
+            {" "}
+            {/* Increased left space */}
             <button
               onClick={() => scrollToSection("hero")}
               className="text-xl md:text-2xl font-bold flex items-center space-x-2 md:space-x-3"
@@ -50,7 +52,7 @@ const Navbar = () => {
               <button
                 key={link.section}
                 onClick={() => scrollToSection(link.section)}
-                className="relative group text-white text-sm md:text-base lg:text-lg font-medium tracking-wide"
+                className="relative group text-white font-medium tracking-wide"
               >
                 {link.name}
                 <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>

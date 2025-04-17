@@ -31,20 +31,38 @@ function App() {
       <div className="min-h-screen bg-dark-bg flex flex-col">
         <Navbar />
         <ScrollToTop />
-        <div className="flex-1 overflow-y-auto container mx-auto px-4 py-10">
+
+        {/* Updated padding here for responsive spacing */}
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 md:px-12 lg:px-20 py-10">
           <Routes>
             <Route
               path="/"
               element={
                 <>
-                  <section id="hero"><Hero /></section>
-                  <section id="about"><About /></section>
-                  <section id="experience"><Experience /></section>
-                  <section id="education"><Education /></section>
-                  <section id="skills"><Skills /></section>
-                  <section id="projects"><Projects /></section>
-                  <section id="achievements"><Achievements /></section>
-                  <section id="contact"><Contact /></section>
+                  <section id="hero">
+                    <Hero />
+                  </section>
+                  <section id="about">
+                    <About />
+                  </section>
+                  <section id="experience">
+                    <Experience />
+                  </section>
+                  <section id="education">
+                    <Education />
+                  </section>
+                  <section id="skills">
+                    <Skills />
+                  </section>
+                  <section id="projects">
+                    <Projects />
+                  </section>
+                  <section id="achievements">
+                    <Achievements />
+                  </section>
+                  <section id="contact">
+                    <Contact />
+                  </section>
                 </>
               }
             />
