@@ -33,29 +33,31 @@ const Navbar = () => {
 
   return (
     <nav className="bg-black/90 backdrop-blur-md sticky top-3 z-50 shadow-md">
-      <div className="mx-auto px-4">
+      <div className="mx-auto px-4 sm:px-8 md:px-16">
         <div className="flex justify-between items-center py-4">
-          <div className="flex-shrink-0 pl-24">
+          <div className="flex-shrink-0">
             <button
               onClick={() => scrollToSection("hero")}
-              className="text-3xl font-bold flex items-center space-x-3"
+              className="text-2xl md:text-3xl font-bold flex items-center space-x-2 md:space-x-3"
             >
-              <span className="text-blue-500 ml-40">Sameer</span>
+              <span className="text-blue-500">Sameer</span>
               <span className="text-purple-500">Makwani</span>
             </button>
           </div>
-          <div className="hidden md:flex flex-grow justify-end pr-16 space-x-10">
+
+          <div className="hidden md:flex flex-grow justify-end space-x-6 md:space-x-10 pr-4">
             {navLinks.map((link) => (
               <button
                 key={link.section}
                 onClick={() => scrollToSection(link.section)}
-                className="relative group text-white text-xl font-medium tracking-wide"
+                className="relative group text-white text-base md:text-lg lg:text-xl font-medium tracking-wide"
               >
                 {link.name}
                 <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
               </button>
             ))}
           </div>
+
           <button
             className="md:hidden text-gray-300 focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
@@ -93,6 +95,7 @@ const Navbar = () => {
             )}
           </button>
         </div>
+
         {isOpen && (
           <div className="md:hidden py-4 space-y-3">
             {navLinks.map((link) => (
