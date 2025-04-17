@@ -1,0 +1,46 @@
+/* index.css or global.css */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
+  @apply bg-dark-bg text-gray-300;
+  font-family: "Inter", sans-serif;
+}
+
+.gradient-text {
+  @apply bg-gradient-to-r from-primary-blue to-primary-purple text-transparent bg-clip-text;
+}
+
+.btn {
+  @apply px-5 py-2 rounded-md transition-all duration-300 font-medium;
+}
+
+.btn-primary {
+  @apply bg-blue-700 hover:bg-blue-800 text-white;
+}
+
+.btn-secondary {
+  @apply bg-gray-800 hover:bg-gray-700 text-white;
+}
+
+.btn-danger {
+  @apply bg-red-700 hover:bg-red-800 text-white;
+}
+
+.nav-link {
+  @apply text-gray-300 hover:text-white transition-colors duration-300;
+}
+
+.nav-link.active {
+  @apply text-white;
+}
+
+.section-title {
+  @apply text-3xl font-bold mb-8 text-white;
+}
