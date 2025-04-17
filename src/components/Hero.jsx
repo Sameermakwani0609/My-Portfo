@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="min-h-screen py-20 mt-32 px-6 sm:px-10 md:px-20"
+      className="min-h-screen py-20 mt-20 px-6 sm:px-10 md:px-20"
     >
       <div className="grid md:grid-cols-2 gap-10 items-center">
         {/* Text Section */}
