@@ -32,8 +32,8 @@ function App() {
         <Navbar />
         <ScrollToTop />
 
-        {/* Updated padding here for responsive spacing */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 md:px-12 lg:px-20 py-10">
+        {/* Reduced top padding on mobile */}
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 md:px-12 lg:px-20 pt-2 sm:pt-4 md:pt-6 pb-2 sm:pb-6 md:pb-10">
           <Routes>
             <Route
               path="/"
