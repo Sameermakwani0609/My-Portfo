@@ -86,7 +86,9 @@ const Navbar = () => {
               className="group relative flex items-center gap-2 sm:gap-3 text-lg sm:text-xl lg:text-2xl font-bold"
             >
               <div className="relative w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-purple-500/25">
-                <span className="text-white font-bold text-xs sm:text-sm">SM</span>
+                <span className="text-white font-bold text-xs sm:text-sm">
+                  SM
+                </span>
               </div>
 
               <div className="flex items-center gap-1 sm:gap-2">
@@ -172,13 +174,13 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation - Improved touch targets */}
+        {/* Mobile Navigation - Improved touch targets with scrollable menu */}
         <div
           className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            isOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="py-2 sm:py-3 space-y-0.5 border-t border-gray-800/50">
+          <div className="py-2 sm:py-3 space-y-0.5 border-t border-gray-800/50 max-h-[70vh] overflow-y-auto custom-scrollbar">
             {navLinks.map((link) => (
               <button
                 key={link.section}
@@ -199,6 +201,23 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Custom Scrollbar Styles for Mobile Menu */}
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(139, 92, 246, 0.5);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(139, 92, 246, 0.8);
+        }
+      `}</style>
     </nav>
   );
 };

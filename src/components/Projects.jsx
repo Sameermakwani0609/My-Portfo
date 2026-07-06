@@ -29,6 +29,8 @@ const ProjectCard = ({
           src={image}
           alt={title}
           className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+          decoding="async"
           onError={(e) => {
             e.target.onerror = null;
             e.target.src =
