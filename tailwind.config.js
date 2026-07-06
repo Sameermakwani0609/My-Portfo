@@ -11,6 +11,9 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },
+       screens: {
+        'xs': '475px',  // Add this for extra small screens
+      },
     },
   },
   plugins: [],

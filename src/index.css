@@ -47,3 +47,14 @@ html {
 .section-title {
   @apply text-3xl font-bold mb-8 text-white;
 }
+/* For very small screens */
+@media (max-width: 360px) {
+  .text-3xl {
+    font-size: 1.75rem; /* 28px */
+  }
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}

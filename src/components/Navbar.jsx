@@ -1,7 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
+  const [scrolled, setScrolled] = useState(false);
+
+  const navLinks = [
+    { name: "Home", section: "hero", icon: "🏠" },
+    { name: "About", section: "about", icon: "👤" },
+    { name: "Experience", section: "experience", icon: "💼" },
+    { name: "Education", section: "education", icon: "🎓" },
+    { name: "Skills", section: "skills", icon: "⚡" },
+    { name: "Projects", section: "projects", icon: "🚀" },
+    { name: "Achievements", section: "achievements", icon: "🏆" },
+    { name: "Contact", section: "contact", icon: "📧" },
+  ];
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -17,101 +30,174 @@ const Navbar = () => {
       });
 
       setIsOpen(false);
+      setActiveSection(sectionId);
     }
   };
 
-  const navLinks = [
-    { name: "Home", section: "hero" },
-    { name: "About", section: "about" },
-    { name: "Experience", section: "experience" },
-    { name: "Education", section: "education" },
-    { name: "Skills", section: "skills" },
-    { name: "Projects", section: "projects" },
-    { name: "Achievements", section: "achievements" },
-    { name: "Contact", section: "contact" },
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      const sections = navLinks.map((link) => link.section);
+      const scrollPosition = window.scrollY + 100;
+
+      for (const sectionId of sections) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const sectionTop = section.offsetTop;
+          const sectionBottom = sectionTop + section.offsetHeight;
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (isOpen && !e.target.closest("nav")) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [isOpen]);
 
   return (
-    <nav className="bg-black/90 backdrop-blur-md sticky top-3 z-50 shadow-md text-sm md:text-base lg:text-base">
-      <div className="mx-auto px-4 sm:px-8 md:px-16">
-        <div className="flex justify-between items-center py-3">
-          <div className="flex-shrink-0 pl-6">
-            {" "}
-            {/* Increased left space */}
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-black/95 backdrop-blur-xl shadow-2xl shadow-purple-500/10"
+          : "bg-black/80 backdrop-blur-md"
+      } border-b border-gray-800/50`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-14 sm:h-16 lg:h-20">
+          {/* Mobile Logo - Smaller on mobile */}
+          <div className="flex-shrink-0">
             <button
               onClick={() => scrollToSection("hero")}
-              className="text-xl md:text-2xl font-bold flex items-center space-x-2 md:space-x-3"
+              className="group relative flex items-center gap-2 sm:gap-3 text-lg sm:text-xl lg:text-2xl font-bold"
             >
-              <span className="text-blue-500">Sameer</span>
-              <span className="text-purple-500">Makwani</span>
+              <div className="relative w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-purple-500/25">
+                <span className="text-white font-bold text-xs sm:text-sm">SM</span>
+              </div>
+
+              <div className="flex items-center gap-1 sm:gap-2">
+                <span className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300 text-sm sm:text-base lg:text-xl">
+                  Sameer
+                </span>
+                <span className="text-purple-400 group-hover:text-purple-300 transition-colors duration-300 text-sm sm:text-base lg:text-xl">
+                  Makwani
+                </span>
+              </div>
             </button>
           </div>
 
-          <div className="hidden md:flex flex-grow justify-end space-x-4 md:space-x-6 pr-4">
+          {/* Desktop Navigation - Hidden on mobile */}
+          <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <button
                 key={link.section}
                 onClick={() => scrollToSection(link.section)}
-                className="relative group text-white font-medium tracking-wide"
+                className={`relative px-2 py-2 text-sm font-medium rounded-lg transition-all duration-300 group ${
+                  activeSection === link.section
+                    ? "text-white bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30"
+                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                }`}
               >
-                {link.name}
-                <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+                <span className="relative z-10 flex items-center gap-1.5">
+                  <span className="text-base">{link.icon}</span>
+                  {link.name}
+                </span>
+
+                {activeSection === link.section && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></span>
+                )}
+                <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               </button>
             ))}
           </div>
 
-          <button
-            className="md:hidden text-gray-300 focus:outline-none"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? (
+          {/* Mobile Controls */}
+          <div className="flex items-center gap-1 sm:gap-2 lg:hidden">
+            <button className="p-1.5 sm:p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5 transition-all duration-300">
               <svg
-                className="w-6 h-6"
+                className="w-4 h-4 sm:w-5 sm:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
+                  strokeWidth="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
                 />
               </svg>
-            ) : (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              </svg>
-            )}
-          </button>
+            </button>
+
+            <button
+              className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-all duration-300 focus:outline-none touch-manipulation"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+            >
+              <div className="flex flex-col items-center justify-center w-5 sm:w-6 gap-1.5">
+                <span
+                  className={`block h-0.5 bg-current transition-all duration-300 ${
+                    isOpen ? "rotate-45 translate-y-2" : ""
+                  }`}
+                  style={{ width: "20px" }}
+                ></span>
+                <span
+                  className={`block h-0.5 bg-current transition-all duration-300 ${
+                    isOpen ? "opacity-0" : ""
+                  }`}
+                  style={{ width: "20px" }}
+                ></span>
+                <span
+                  className={`block h-0.5 bg-current transition-all duration-300 ${
+                    isOpen ? "-rotate-45 -translate-y-2" : ""
+                  }`}
+                  style={{ width: "20px" }}
+                ></span>
+              </div>
+            </button>
+          </div>
         </div>
 
-        {isOpen && (
-          <div className="md:hidden py-3 space-y-2">
+        {/* Mobile Navigation - Improved touch targets */}
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="py-2 sm:py-3 space-y-0.5 border-t border-gray-800/50">
             {navLinks.map((link) => (
               <button
                 key={link.section}
                 onClick={() => scrollToSection(link.section)}
-                className="block relative group text-white text-base py-1.5 w-full text-left"
+                className={`w-full flex items-center gap-3 px-3 sm:px-4 py-3 sm:py-2.5 text-sm font-medium rounded-lg transition-all duration-300 touch-manipulation ${
+                  activeSection === link.section
+                    ? "text-white bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30"
+                    : "text-gray-400 hover:text-white hover:bg-white/5 active:bg-white/10"
+                }`}
               >
-                {link.name}
-                <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+                <span className="text-base sm:text-lg">{link.icon}</span>
+                <span className="flex-1 text-left">{link.name}</span>
+                {activeSection === link.section && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                )}
               </button>
             ))}
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
