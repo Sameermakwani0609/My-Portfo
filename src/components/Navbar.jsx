@@ -79,7 +79,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 sm:h-16 lg:h-20">
-          {/* Mobile Logo - Smaller on mobile */}
+          {/* Logo */}
           <div className="flex-shrink-0">
             <button
               onClick={() => scrollToSection("hero")}
@@ -102,7 +102,7 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation - Hidden on mobile */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <button
@@ -127,24 +127,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile Controls */}
-          <div className="flex items-center gap-1 sm:gap-2 lg:hidden">
-            <button className="p-1.5 sm:p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5 transition-all duration-300">
-              <svg
-                className="w-4 h-4 sm:w-5 sm:h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                />
-              </svg>
-            </button>
-
+          {/* Mobile Menu Button */}
+          <div className="flex items-center lg:hidden">
             <button
               className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-all duration-300 focus:outline-none touch-manipulation"
               onClick={() => setIsOpen(!isOpen)}
@@ -174,7 +158,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation - Improved touch targets with scrollable menu */}
+        {/* Mobile Navigation Menu */}
         <div
           className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
             isOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
